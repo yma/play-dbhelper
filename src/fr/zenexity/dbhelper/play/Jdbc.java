@@ -87,7 +87,7 @@ public class Jdbc extends fr.zenexity.dbhelper.Jdbc {
     public static JdbcAdapter.Builder defaultPlayAdapterBuilder() {
         return JdbcAdapter.defaultBuilder()
             .register(new JodaTimeCaster())
-            .registerValueForSqlNormalizer(new JodaTimeToSqlNormalizer());
+            .register(new JodaTimeSqlEncoder());
     }
 
     public static class JodaTimeCaster implements JdbcAdapter.Caster {
@@ -108,7 +108,7 @@ public class Jdbc extends fr.zenexity.dbhelper.Jdbc {
         }
     }
 
-    public static class JodaTimeToSqlNormalizer implements JdbcAdapter.Normalizer {
+    public static class JodaTimeSqlEncoder implements JdbcAdapter.SqlEncoder {
         public int priority() { return 900; }
 
         public Object normalize(Object value) throws Exception {
